@@ -31,4 +31,20 @@ router.delete('/:userId/:postId', async (req, res) => {
     });
 })
 
+/*
+    - Edit a post
+    - PUT /posts/:userid/:postid
+    - body: { title: "string", body: "string" }
+*/
+router.put('/:userId/:postId', async (req, res) => {
+    User.findOneAndUpdate({ _id: req.params.userId, "posts._id": req.params.postId }, { $set: { "posts.$.title": req.body.title, "posts.$.body": req.body.body } }, { new: true }, (err, user) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.json(user);
+    });
+})
+
+
 module.exports = router;
