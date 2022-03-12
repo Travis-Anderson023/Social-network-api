@@ -7,7 +7,7 @@ const router = require('express').Router();
     - PUT /friends/:Id/:friendid
 */
 router.put('/:id/:friendId', async (req, res) => {
-    User.findOneAndUpdate({ _id: req.params.id }, { $push: { friends: { userId: 'test' } } }, { new: true }, (err, user) => {
+    User.findOneAndUpdate({ _id: req.params.id }, { $push: { friends: { userId: req.params.friendId } } }, { new: true }, (err, user) => {
         if (err) {
             res.send(err);
             return;
@@ -15,6 +15,21 @@ router.put('/:id/:friendId', async (req, res) => {
         res.json(user);
     });
 });
+
+/*
+    - deletes a friend from a user
+    - DELETE /friends/:Id/:friendid
+*/
+router.delete('/:id/:friendId', async (req, res) => {
+    User.findOneAndUpdate({ _id: req.params.id }, { $pull: { friends: { userId: req.params.friendId } } }, { new: true }, (err, user) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.json(user);
+    });
+});
+
 
 
 
