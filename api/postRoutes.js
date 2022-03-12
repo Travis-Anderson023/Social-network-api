@@ -46,5 +46,24 @@ router.put('/:userId/:postId', async (req, res) => {
     });
 })
 
+/*
+    - Get all posts from all users
+    - GET /posts
+*/
+router.get('/', async (req, res) => {
+    User.find({}, (err, users) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        //gets posts from every user
+        posts = users.map(user => {
+            return user.posts;
+        })
+        res.json(posts);
+    });
+})
+
+
 
 module.exports = router;
