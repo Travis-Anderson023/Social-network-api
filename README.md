@@ -8,7 +8,9 @@ This is a social platform api that allows the user to interact with mongo db. To
 
 ## Screenshot
 Note the video got cut off due to lack of time. The missing information was the delete friend request which I included the 2 screenshots of in this readme.
-![video](./readmeAssets/socialPlatformBackend.mp4)
+
+# The mp4 is in the repo
+
 ![deletePic](./readmeAssets/delete.png)
 ![getallusers](./readmeAssets/getAllUsersAfterDeleteFriend.png)
 
