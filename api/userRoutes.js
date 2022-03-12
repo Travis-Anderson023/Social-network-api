@@ -1,11 +1,10 @@
 const mongoose = require('mongoose');
 const User = require('../models/User');
-const db = require('../config/connection');
 const router = require('express').Router();
 
 /*
     - Creates new user
-    - POST /api/users
+    - POST /users
     - body: {"userName": "string"}
 */
 router.post('/', async (req, res) => {
@@ -20,7 +19,7 @@ router.post('/', async (req, res) => {
 
 /*
     - Gets all users
-    - GET /api/users
+    - GET /users
 */
 router.get('/', async (req, res) => {
     User.find({}, (err, users) => {
@@ -31,4 +30,19 @@ router.get('/', async (req, res) => {
         res.json(users);
     });
 });
+
+/*
+    - Deletes User
+    - DELETE /users/:id
+*/
+router.delete('/:id', async (req, res) => {
+    User.findByIdAndRemove(req.params.id, (err, user) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.json(user);
+    });
+});
+
 module.exports = router;
