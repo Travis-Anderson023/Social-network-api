@@ -17,6 +17,20 @@ router.post('/:postOwnerId/:postId', async (req, res) => {
     });
 });
 
+/*
+    - Delete a reply
+    - DELETE /replies/:postOwnerId/:postId/:replyId
+*/
+router.delete('/:postOwnerId/:postId/:replyId', async (req, res) => {
+    User.findOneAndUpdate({ _id: req.params.postOwnerId, "posts._id": req.params.postId }, { $pull: { "posts.$.replies": { _id: req.params.replyId } } }, { new: true }, (err, user) => {
+        if (err) {
+            res.send(err);
+            return;
+        }
+        res.json(user);
+    });
+});
+
 
 
 module.exports = router;
